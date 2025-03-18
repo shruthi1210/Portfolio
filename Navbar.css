@@ -1,178 +1,171 @@
-/* Navbar.css */
-
-/* Main Navbar Styling */
+/* Glassmorphism Navbar */
 .navbar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  color: #fff;
-  position: fixed;
-  width: 100%;
-  top: 0;
-  background-image: linear-gradient(180deg, rgb(0 0 1 / 90%) 10%, transparent 100%);
-  padding: 20px;
-  z-index: 3;
-  transition: background-color 0.3s ease;
+  padding: 15px 50px;
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(10px);
+  z-index: 1000;
+  transition: 0.3s ease-in-out;
 }
 
+/* Navbar when scrolled */
 .navbar.scrolled {
-  background-color: #141414; /* Netflix black when scrolled */
+  background: rgba(0, 0, 0, 0.9);
+  backdrop-filter: blur(5px);
 }
 
-.navbar-left, .navbar-right {
-  display: flex;
-  align-items: center;
-}
-
+/* Logo */
 .navbar-logo img {
-  height: 30px;
-  margin-right: 30px;
-  margin-left: 10px;
-  margin-top: 5px;
+  height: 40px;
+  cursor: pointer;
 }
 
 /* Navbar Links */
 .navbar-links {
-  display: flex;
   list-style: none;
-  gap: 20px;
-  padding: 0;
-  margin: 0;
+  display: flex;
 }
 
-.navbar-links li a {
-  color: #fff;
+.navbar-links li {
+  margin: 0 15px;
+}
+
+.navbar-links a {
   text-decoration: none;
-  font-size: 1.05rem;
-  transition: color 0.3s;
+  font-size: 1rem;
+  color: white;
+  transition: all 0.3s ease-in-out;
+  position: relative;
 }
 
-.navbar-links li a:hover {
-  color: #e50914; /* Netflix red */
+.navbar-links a:hover {
+  color: #00eaff;
+}
+
+/* Hover Underline Animation */
+.navbar-links a::after {
+  content: "";
+  position: absolute;
+  width: 0%;
+  height: 2px;
+  background: #00eaff;
+  left: 50%;
+  bottom: -5px;
+  transition: all 0.3s ease-in-out;
+}
+
+.navbar-links a:hover::after {
+  width: 100%;
+  left: 0;
 }
 
 /* Profile Icon */
 .profile-icon {
-  width: 30px;
-  height: 30px;
-  border-radius: 15%;
-  transition: transform 0.3s;
-  margin-right: 3rem;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
   cursor: pointer;
 }
 
-/* Hide the hamburger and sidebar in desktop view */
-.hamburger,
-.sidebar-overlay,
-.sidebar {
+/* Hamburger Menu (Mobile) */
+.hamburger {
+  display: none;
+  cursor: pointer;
+}
+
+.hamburger div {
+  width: 30px;
+  height: 3px;
+  background-color: white;
+  margin: 5px;
+}
+
+/* Sidebar Overlay */
+.sidebar-overlay {
   display: none;
 }
 
-/* Mobile-specific styling */
-@media (max-width: 768px) {
-  .navbar-logo img {
-    height: 20px;
-    margin-right: auto;
-  }
-  .profile-icon {
-    width: 24px;
-    height: 24px;
+/* Sidebar (Mobile Menu) */
+.sidebar {
+  position: fixed;
+  top: 0;
+  right: -250px;
+  width: 250px;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.95);
+  transition: right 0.3s ease-in-out;
+  padding-top: 60px;
+  text-align: center;
+}
+
+.sidebar.open {
+  right: 0;
+}
+
+.sidebar-logo img {
+  height: 40px;
+  margin-bottom: 20px;
+}
+
+/* Sidebar Links */
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar ul li {
+  margin: 20px 0;
+}
+
+.sidebar ul a {
+  font-size: 1.2rem;
+  color: #fff;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+}
+
+.sidebar ul a:hover {
+  color: #00eaff;
+}
+
+.sidebar ul a svg {
+  margin-right: 10px;
+}
+
+/* Mobile Responsiveness */
+@media screen and (max-width: 768px) {
+  .hamburger {
+    display: block;
   }
 
-
-  /* Hide Navbar Links in Mobile */
   .navbar-links {
     display: none;
   }
 
-  /* Show Hamburger Menu */
-  .hamburger {
-    display: block;
-    cursor: pointer;
-  }
-
-  .hamburger div {
-    width: 25px;
-    height: 3px;
-    background-color: #fff;
-    margin: 4px;
-    transition: 0.3s;
-  }
-
-  /* Sidebar Overlay */
   .sidebar-overlay {
+    display: block;
     position: fixed;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 3;
-    display: none;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    visibility: hidden;
   }
 
   .sidebar-overlay.open {
-    display: block;
-  }
-
-  /* Sidebar Styling */
-  .sidebar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 70%;
-    background-color: #141414;
-    color: #fff;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: 4;
-  }
-
-  .sidebar.open {
-    transform: translateX(0);
-  }
-
-  .sidebar-logo img {
-    height: 30px;
-    margin-bottom: 20px;
-  }
-
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  .sidebar ul li {
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  
-  .sidebar ul li a {
-    color: #fff;
-    text-decoration: none;
-    font-size: 1.2rem;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-
-  /* Close button inside the sidebar */
-  .hamburger-icon {
-    font-size: 1.5rem;
-    margin-right: 5px;
-  }
-
-  /* Sidebar adjustments */
-  .sidebar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    opacity: 1;
+    visibility: visible;
   }
 }
